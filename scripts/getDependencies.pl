@@ -249,9 +249,9 @@ sub downloadFile {
 	# .txt SHA files are in ISO8859-1
 	# note _ENCODE_FILE_NEW flag is set for zos
 	if ('.txt' eq substr $filename, -length('.txt')) {
-		$output = qx{_ENCODE_FILE_NEW=ISO8859-1 curl -k -o $filename $url 2>&1};
+		$output = qx{export _ENCODE_FILE_NEW=ISO8859-1 && curl -k -o $filename $url 2>&1};
 	} else {
-		$output = qx{_ENCODE_FILE_NEW=UNTAGGED curl -k -o $filename $url 2>&1};
+		$output = qx{export _ENCODE_FILE_NEW=UNTAGGED && curl -k -o $filename $url 2>&1};
 	}
 	my $returnCode = $?;
 	if ($returnCode == 0) {
